@@ -3,22 +3,22 @@
 	  <div class="slider-wrapper">
 
 		  <!-- Text info -->
-		  <p class="descr" v-if="showColor == null">{{info}}</p>
+		  <p class="descr" v-if="isText == null">{{info}}</p>
 
 		  <!-- Button -->
 		  <div class="button">
 			<el-row>
-  				<el-button @click="showColor = true">color</el-button>
-				<el-button @click="showColor = false">backgroundColor</el-button>
+  				<el-button @click="isText = true">color</el-button>
+				<el-button @click="isText = false">backgroundColor</el-button>
 			</el-row>
 		  </div>
 		  <div class="slider">
 
 			<!-- Slider -->
 			<div class="block">
-    			<el-slider v-model="colors.textRed" :show-tooltip="false" :max="255" class="el-slider-one"></el-slider>
-				<el-slider v-model="colors.textGreen" :show-tooltip="true" :max="255" class="el-slider-two"></el-slider>
-				<el-slider v-model="colors.textBlue" :show-tooltip="false" :max="255" class="el-slider-three"></el-slider>
+    			<el-slider v-model="colors.Red" @change="onChange" :show-tooltip="false" :max="255" class="el-slider-one"></el-slider>
+				<el-slider v-model="colors.Green" @change="onChange" :show-tooltip="false" :max="255" class="el-slider-two"></el-slider>
+				<el-slider v-model="colors.Blue" @change="onChange" :show-tooltip="false" :max="255" class="el-slider-three"></el-slider>
   			</div>
 
 			<!-- Field of content -->
@@ -40,56 +40,50 @@
 export default {
 	data() {
       return {
-		showColor: null,
+		isText: null,
 		text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Porro, ullam! Neque unde quia eum minima quidem quisquam nobis odit!',
 		colors: {
-			textRed: 84,
-			textGreen: 222,
-			textBlue: 255
+			Red: 255,
+			Green: 255,
+			Blue: 255
 		},
 		defaultColorText: {
-			active: false,
-			textRed: 84,
-			textGreen: 222,
-			textBlue: 255
+			Red: 255,
+			Green: 255,
+			Blue: 255
 		},
 		defaultColorBg: {
-			active: false,
-			textRed: 255,
-			textGreen: 255,
-			textBlue: 255
+			Red: 255,
+			Green: 255,
+			Blue: 255
 		},
-		color: '',
-		bgColor: '',
-		info: 'Choose type of button for changing text or background color!'
+		info: 'Choose type of button for changing text or background color below!'
       }
 	},
 	computed: {
 		style() {
-			if (this.showColor === null) return false
-			if (this.showColor === true) {
-				if (this.defaultColorText.active === false) {
-					this.color = `color:rgb(${this.colors.textRed}, ${this.colors.textGreen}, ${this.colors.textBlue}); background-color:rgb(${this.defaultColorBg.textRed}, ${this.defaultColorBg.textGreen}, ${this.defaultColorBg.textBlue});`
-					this.defaultColorText.active === true
-				}
-				this.color = `color:rgb(${this.defaultColorText.textRed}, ${this.defaultColorText.textGreen}, ${this.defaultColorText.textBlue}); background-color:rgb(${this.defaultColorBg.textRed}, ${this.defaultColorBg.textGreen}, ${this.defaultColorBg.textBlue});`
-				this.defaultColorText.textRed = this.colors.textRed
-				this.defaultColorText.textGreen = this.colors.textGreen
-				this.defaultColorText.textBlue = this.colors.textBlue
-				return this.color
-			} else if (this.showColor === false) {
-				if (this.defaultColorBg.active === false) {
-					this.color = `background-color:rgb(${this.colors.textRed}, ${this.colors.textGreen}, ${this.colors.textBlue}); color:rgb(${this.defaultColorBg.textRed}, ${this.defaultColorBg.textGreen}, ${this.defaultColorBg.textBlue});`
-					this.defaultColorBg.active === true
-				}
-				this.bgColor = `background-color:rgb(${this.defaultColorBg.textRed}, ${this.defaultColorBg.textGreen}, ${this.defaultColorBg.textBlue}); color:rgb(${this.defaultColorText.textRed}, ${this.defaultColorText.textGreen}, ${this.defaultColorText.textBlue});`
-				this.defaultColorBg.textRed = this.colors.textRed
-				this.defaultColorBg.textGreen = this.colors.textGreen
-				this.defaultColorBg.textBlue = this.colors.textBlue
-				return this.bgColor
-			}
+			return `color:rgb(${this.defaultColorText.Red}, ${this.defaultColorText.Green}, ${this.defaultColorText.Blue}); background-color:rgb(${this.defaultColorBg.Red}, ${this.defaultColorBg.Green}, ${this.defaultColorBg.Blue});`
 		}
-    }
+	},
+	methods: {
+		onChange() {
+			if (this.isText === null) return false
+			if (this.isText) this.upd(this.defaultColorText, this.colors);
+			else this.upd(this.defaultColorBg, this.colors);
+
+		},
+		upd(obj, obj2) {
+			obj.Red = obj2.Red
+			obj.Green = obj2.Green
+			obj.Blue = obj2.Blue
+		}
+	},
+	watch: {
+		isText() {
+			if (this.isText) this.upd(this.colors, this.defaultColorText);
+			else this.upd(this.colors, this.defaultColorBg);
+		}
+	}
 }
 </script>
 
@@ -139,5 +133,6 @@ export default {
 	margin: 30px 0;
     min-width: 400px;
 	font-size: 24px;
+	color: red;
 }
 </style>
