@@ -4,7 +4,7 @@
     <section>
       <div class="container">
         <h1 class="title">Страница не найдена!</h1>
-		    <p>Перейти на <router-link class="link" to="/">страницу авторизации?</router-link></p>
+		    <p>Перейти на <router-link class="link" to="/">главную?</router-link></p>
       </div>
     </section>
 
