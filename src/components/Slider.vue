@@ -16,9 +16,9 @@
 
 			<!-- Slider -->
 			<div class="block">
-    			<el-slider v-model="colors.Red" @change="onChange" :show-tooltip="false" :max="255" class="el-slider-one"></el-slider>
-				<el-slider v-model="colors.Green" @change="onChange" :show-tooltip="false" :max="255" class="el-slider-two"></el-slider>
-				<el-slider v-model="colors.Blue" @change="onChange" :show-tooltip="false" :max="255" class="el-slider-three"></el-slider>
+    			<el-slider v-model="colors.Red" @input="onChange" :show-tooltip="false" :max="255" class="el-slider-one"></el-slider>
+				<el-slider v-model="colors.Green" @input="onChange" :show-tooltip="false" :max="255" class="el-slider-two"></el-slider>
+				<el-slider v-model="colors.Blue" @input="onChange" :show-tooltip="false" :max="255" class="el-slider-three"></el-slider>
   			</div>
 
 			<!-- Field of content -->
