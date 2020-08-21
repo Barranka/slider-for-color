@@ -8,8 +8,8 @@
 		  <!-- Button -->
 		  <div class="button">
 			<el-row>
-  				<el-button @click="isText = true">color</el-button>
-				<el-button @click="isText = false">backgroundColor</el-button>
+  				<el-button @click="isText = true, isActiveText = true, isActiveBg = false" :class="{ active: isActiveText }">color</el-button>
+				<el-button @click="isText = false, isActiveBg = true, isActiveText = false" :class="{ active: isActiveBg }">backgroundColor</el-button>
 			</el-row>
 		  </div>
 		  <div class="slider">
@@ -40,7 +40,9 @@
 export default {
 	data() {
       return {
-		isText: null,
+		isText: true,
+		isActiveText: true,
+		isActiveBg: false,
 		text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Porro, ullam! Neque unde quia eum minima quidem quisquam nobis odit!',
 		colors: {
 			Red: 255,
@@ -88,6 +90,13 @@ export default {
 </script>
 
 <style lang="scss">
+button {
+	&.active {
+    	color: #3a8ee6;
+    	border-color: #3a8ee6;
+    	outline: 0;
+	}
+}
 .button {
 	margin: 40px 0;
 	min-width: 900px;
@@ -135,4 +144,5 @@ export default {
 	font-size: 24px;
 	color: red;
 }
+
 </style>
